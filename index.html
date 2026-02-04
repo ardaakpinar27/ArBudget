@@ -63,6 +63,7 @@
             inset: 0;
             background: var(--bg-gradient);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 9999;
@@ -102,7 +103,7 @@
         html, body {
             margin: 0; padding: 0; height: 100%; width: 100%;
             overflow: hidden; background: var(--bg-color);
-            position: fixed; /* Mobilde body scroll'u engellemek için */
+            position: fixed;
         }
 
         body { background: var(--bg-gradient); color: var(--text-main); overflow: hidden; }
@@ -245,7 +246,7 @@
 
         .analiz-card { background: rgba(22, 163, 74, 0.1); border: 1px solid rgba(22, 163, 74, 0.2); color: #16a34a; padding: 12px; border-radius: 14px; font-size: 13px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; width: 100%; }
 
-        /* MOBİL ODAKLI AR-AI BUTONU (SAFE AREA UYUMLU) */
+        /* AR-AI BUTON VE PANEL */
         .ai-fab {
             position: fixed; 
             right: 20px; 
@@ -260,7 +261,6 @@
         .ai-fab:active { transform: scale(0.88); }
         .ai-fab img { width: 38px; height: 38px; border-radius: 50%; }
 
-        /* MOBİL ODAKLI AR-AI PANEL (FULL MOBİL DENEYİMİ) */
         .ai-panel {
             position: fixed; bottom: 0; left: 0; width: 100%; height: 75vh;
             background: var(--bg-color); border-top-left-radius: 28px; border-top-right-radius: 28px;
@@ -271,12 +271,7 @@
         }
         .ai-panel.active { transform: translateY(0); }
 
-        /* MOBİL SÜRÜKLEME TUTAMAĞI (HANDLE) */
-        .ai-drag-handle {
-            width: 40px; height: 5px; background: var(--border-color);
-            border-radius: 10px; margin: 10px auto 0; flex-shrink: 0;
-        }
-
+        .ai-drag-handle { width: 40px; height: 5px; background: var(--border-color); border-radius: 10px; margin: 10px auto 0; flex-shrink: 0; }
         .ai-panel-header { padding: 10px 20px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
         .ai-panel-title { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 19px; }
         .ai-panel-title img { width: 32px; height: 32px; }
@@ -296,14 +291,13 @@
     </style>
 
     <script>
-        // MOBİL BAŞLATICI (TOP VE BOTTOM SAFE AREA DESTEĞİ)
+        // MOBİL BAŞLATICI (TEMA VE SAFE AREA)
         (function() {
+            // URL parametreleri yerine artık JS fonksiyonuna güveniyoruz,
+            // ancak manuel URL açılışları için bu kısmı koruyoruz.
             const params = new URLSearchParams(window.location.search);
             const topVal = params.get('top');
-            const bottomVal = params.get('bottom') || 0; // Eğer Java tarafında bottom eklersen diye hazır
-            
             if (topVal) document.documentElement.style.setProperty('--safe-area-inset-top', topVal + 'px');
-            if (bottomVal) document.documentElement.style.setProperty('--safe-area-inset-bottom', bottomVal + 'px');
 
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
@@ -372,7 +366,7 @@
     </div>
 </div>
 
-<!-- HESAP MAKİNESİ -->
+<!-- HESAP MAKİNESİ EKRANI -->
 <div id="calculator-screen" class="view hidden">
     <div class="calc-header">
         <button class="back-btn-bubble" onclick="toggleView('main')">‹</button>
@@ -403,7 +397,7 @@
     </div>
 </div>
 
-<!-- HESAP ÖZETİ -->
+<!-- HESAP ÖZETİ EKRANI -->
 <div id="summary-view" class="view hidden">
     <div class="summary-view-header">
         <button class="back-btn-bubble" onclick="toggleView('main')">‹</button>
@@ -418,8 +412,8 @@
                 <span id="analysisText">Veri işleniyor...</span>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-                <div style="font-size:12px; color:var(--text-sub);">Gelir<br><strong id="statementIncome" style="color:#16a34a; font-size:14px;">₺0</strong></div>
-                <div style="font-size:12px; color:var(--text-sub); text-align:right;">Gider<br><strong id="statementExpense" style="color:#dc2626; font-size:14px;">₺0</strong></div>
+                <div style="font-size:12px; color:var(--text-sub);">Toplam Gelir<br><strong id="statementIncome" style="color:#16a34a; font-size:14px;">₺0</strong></div>
+                <div style="font-size:12px; color:var(--text-sub); text-align:right;">Toplam Gider<br><strong id="statementExpense" style="color:#dc2626; font-size:14px;">₺0</strong></div>
             </div>
             <div style="font-size:13px; font-weight:700; color:var(--text-sub); border-bottom:1px solid var(--border-color); padding-bottom:8px; margin-bottom:10px;">İŞLEMLER</div>
             <div id="statementList"></div>
@@ -482,7 +476,7 @@
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth();
 
-    // AÇILIŞ EKRANI
+    // AÇILIŞ EKRANI YÖNETİMİ
     window.addEventListener('load', () => {
         setTimeout(() => {
             const splash = document.getElementById('splash-screen');
@@ -510,16 +504,15 @@
         }
     }
 
-    // Mobil Sürükleyerek Kapatma Mantığı
     const aiPanel = document.getElementById('aiPanel');
     aiPanel.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, {passive: true});
     aiPanel.addEventListener('touchmove', (e) => {
         let moveY = e.touches[0].clientY;
         let diff = moveY - startY;
-        if (diff > 100) toggleAiPanel(false); // 100px aşağı kayarsa kapat
+        if (diff > 100) toggleAiPanel(false); 
     }, {passive: true});
 
-    // TEMA KONTROL
+    // TEMA KONTROLÜ
     function toggleDarkMode() {
         const isDark = document.documentElement.classList.toggle('dark-mode');
         updateThemeIcon(isDark);
@@ -534,7 +527,7 @@
         }
     }
 
-    // GÖRÜNÜM KONTROL
+    // SAYFA DEĞİŞTİRME
     function toggleView(view) {
         const ids = ['main-view', 'calculator-screen', 'summary-view'];
         ids.forEach(id => document.getElementById(id).classList.add('hidden'));
@@ -627,6 +620,8 @@
     function showExitConfirm() { document.getElementById('exitConfirmModal').classList.add('active'); }
     function closeExitConfirm() { document.getElementById('exitConfirmModal').classList.remove('active'); }
     function confirmExitApp() { if (window.AndroidInterface) window.AndroidInterface.exitApp(); }
+    
+    // YENİ GÜVENLİ ALAN FONKSİYONU
     function setAndroidSafeArea(topInsetPx, bottomInsetPx = 0) { 
         if (topInsetPx > 0) document.documentElement.style.setProperty('--safe-area-inset-top', topInsetPx + 'px'); 
         if (bottomInsetPx > 0) document.documentElement.style.setProperty('--safe-area-inset-bottom', bottomInsetPx + 'px'); 
