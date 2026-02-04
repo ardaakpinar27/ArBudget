@@ -14,8 +14,9 @@
 
     <style>
         :root {
-            /* GÜVENLİ ALAN */
+            /* GÜVENLİ ALANLAR (MOBİL İÇİN KRİTİK) */
             --safe-area-inset-top: 0px;
+            --safe-area-inset-bottom: 0px;
 
             /* AÇIK TEMA */
             --bg-color: #eef4ff;
@@ -85,7 +86,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* GENEL SIFIRLAMA */
+        /* GENEL MOBİL SIFIRLAMA */
         * { scrollbar-width: none; -ms-overflow-style: none; box-sizing: border-box; }
         *::-webkit-scrollbar { display: none; }
 
@@ -101,9 +102,10 @@
         html, body {
             margin: 0; padding: 0; height: 100%; width: 100%;
             overflow: hidden; background: var(--bg-color);
+            position: fixed; /* Mobilde body scroll'u engellemek için */
         }
 
-        body { background: var(--bg-gradient); color: var(--text-main); overflow-x: hidden; position: fixed; }
+        body { background: var(--bg-gradient); color: var(--text-main); overflow: hidden; }
         button { outline: none; border: none; background: none; cursor: pointer; }
 
         /* GÖRÜNÜM TAŞIYICILARI */
@@ -161,7 +163,7 @@
             z-index: 110;
         }
 
-        .app { width: 100%; max-width: 420px; margin: auto; padding: 16px; padding-bottom: 40px; overflow-x: hidden; }
+        .app { width: 100%; max-width: 420px; margin: auto; padding: 16px; padding-bottom: 80px; overflow-x: hidden; }
         .glass { background: var(--glass-bg); backdrop-filter: blur(16px); border-radius: 18px; padding: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.15); margin-bottom: 16px; border: 1px solid var(--border-color); width: 100%; overflow: hidden; }
 
         /* TAKVİM */
@@ -208,7 +210,7 @@
 
         /* HESAP MAKİNESİ */
         #calculator-screen { display: flex; flex-direction: column; }
-        .calc-container { flex: 1; padding: 16px; display: flex; flex-direction: column; justify-content: flex-end; max-width: 420px; margin: 0 auto; width: 100%; }
+        .calc-container { flex: 1; padding: 16px; display: flex; flex-direction: column; justify-content: flex-end; max-width: 420px; margin: 0 auto; width: 100%; padding-bottom: calc(20px + var(--safe-area-inset-bottom)); }
         .calc-display { text-align: right; font-size: 42px; font-weight: 700; color: var(--text-main); word-break: break-all; padding: 10px; margin-bottom: 10px; min-height: 60px; display: flex; align-items: flex-end; justify-content: flex-end; line-height: 1.2; }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; }
         .calc-key { aspect-ratio: 1; border-radius: 18px; font-size: 22px; font-weight: 600; background: var(--day-bg); color: var(--text-main); box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); }
@@ -243,52 +245,65 @@
 
         .analiz-card { background: rgba(22, 163, 74, 0.1); border: 1px solid rgba(22, 163, 74, 0.2); color: #16a34a; padding: 12px; border-radius: 14px; font-size: 13px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; width: 100%; }
 
-        /* AR-AI BUTON VE PANEL */
+        /* MOBİL ODAKLI AR-AI BUTONU (SAFE AREA UYUMLU) */
         .ai-fab {
-            position: fixed; right: 20px; bottom: 20px;
-            width: 56px; height: 56px; border-radius: 50%;
+            position: fixed; 
+            right: 20px; 
+            bottom: calc(20px + var(--safe-area-inset-bottom));
+            width: 62px; height: 62px; border-radius: 50%;
             background: var(--glass-bg); border: 1px solid var(--border-color);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 500;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18); z-index: 500;
             display: flex; align-items: center; justify-content: center;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
         }
-        .ai-fab:active { transform: scale(0.9); }
-        .ai-fab img { width: 34px; height: 34px; border-radius: 50%; }
+        .ai-fab:active { transform: scale(0.88); }
+        .ai-fab img { width: 38px; height: 38px; border-radius: 50%; }
 
+        /* MOBİL ODAKLI AR-AI PANEL (FULL MOBİL DENEYİMİ) */
         .ai-panel {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 70vh;
-            background: var(--bg-color); border-top-left-radius: 24px; border-top-right-radius: 24px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.2); z-index: 1100;
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 75vh;
+            background: var(--bg-color); border-top-left-radius: 28px; border-top-right-radius: 28px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.25); z-index: 1100;
             transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex; flex-direction: column; border-top: 1px solid var(--border-color);
+            padding-bottom: var(--safe-area-inset-bottom);
         }
         .ai-panel.active { transform: translateY(0); }
 
-        .ai-panel-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
-        .ai-panel-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
-        .ai-panel-title img { width: 30px; height: 30px; }
-        .ai-close-btn { font-size: 24px; font-weight: 300; color: var(--text-sub); }
+        /* MOBİL SÜRÜKLEME TUTAMAĞI (HANDLE) */
+        .ai-drag-handle {
+            width: 40px; height: 5px; background: var(--border-color);
+            border-radius: 10px; margin: 10px auto 0; flex-shrink: 0;
+        }
 
-        .ai-chat-content { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+        .ai-panel-header { padding: 10px 20px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+        .ai-panel-title { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 19px; }
+        .ai-panel-title img { width: 32px; height: 32px; }
+        .ai-close-btn { font-size: 26px; font-weight: 300; color: var(--text-sub); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+
+        .ai-chat-content { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; -webkit-overflow-scrolling: touch; }
         .ai-bubble {
             background: var(--ai-bubble-bg); color: var(--ai-bubble-text);
-            padding: 14px 18px; border-radius: 18px; border-top-left-radius: 4px;
-            font-size: 14px; line-height: 1.5; max-width: 85%; align-self: flex-start;
-            opacity: 0; transform: translateY(10px); animation: bubbleAppear 0.5s ease forwards;
-            animation-delay: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 16px 20px; border-radius: 22px; border-top-left-radius: 4px;
+            font-size: 15px; line-height: 1.6; max-width: 88%; align-self: flex-start;
+            opacity: 0; transform: translateY(15px); animation: bubbleAppear 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 0.4s; box-shadow: 0 6px 15px rgba(0,0,0,0.08);
         }
         @keyframes bubbleAppear { to { opacity: 1; transform: translateY(0); } }
 
-        .ai-footer { padding: 20px; padding-bottom: calc(20px + env(safe-area-inset-bottom)); border-top: 1px solid var(--border-color); text-align: center; font-size: 12px; color: var(--text-sub); font-style: italic; }
+        .ai-footer { padding: 20px; text-align: center; font-size: 13px; color: var(--text-sub); font-style: italic; opacity: 0.7; }
     </style>
 
     <script>
-        // SENKRON BAŞLATICI
+        // MOBİL BAŞLATICI (TOP VE BOTTOM SAFE AREA DESTEĞİ)
         (function() {
             const params = new URLSearchParams(window.location.search);
             const topVal = params.get('top');
+            const bottomVal = params.get('bottom') || 0; // Eğer Java tarafında bottom eklersen diye hazır
+            
             if (topVal) document.documentElement.style.setProperty('--safe-area-inset-top', topVal + 'px');
+            if (bottomVal) document.documentElement.style.setProperty('--safe-area-inset-bottom', bottomVal + 'px');
 
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
@@ -306,19 +321,20 @@
     </div>
 </div>
 
-<!-- AR-AI BUTON -->
+<!-- MOBİL AR-AI BUTON -->
 <div class="ai-fab" id="aiFab" onclick="toggleAiPanel(true)">
     <img src="https://filedn.eu/liPnBWWQgeQVeGgdPoPnl8S/ArBudget/aibot.png" alt="ArAi Bot">
 </div>
 
-<!-- AR-AI PANEL -->
+<!-- MOBİL AR-AI PANEL -->
 <div class="ai-panel" id="aiPanel">
+    <div class="ai-drag-handle"></div>
     <div class="ai-panel-header">
         <div class="ai-panel-title">
             <img src="https://filedn.eu/liPnBWWQgeQVeGgdPoPnl8S/ArBudget/aibot.png" alt="ArAi">
             <span>ArAi</span>
         </div>
-        <button class="ai-close-btn" onclick="toggleAiPanel(false)">✕</button>
+        <button class="ai-close-btn" onclick="toggleAiPanel(false)" aria-label="Kapat">✕</button>
     </div>
     <div class="ai-chat-content" id="aiChat"></div>
     <div class="ai-footer">ArAi şu an hazırlık aşamasında...</div>
@@ -474,22 +490,34 @@
         }, 2500);
     });
 
-    // AR-AI KONTROL
+    // AR-AI KONTROL (MOBİL SÜRÜKLEME DESTEKLİ)
+    let startY = 0;
     function toggleAiPanel(show) {
         const panel = document.getElementById('aiPanel');
         const chat = document.getElementById('aiChat');
         const fab = document.getElementById('aiFab');
         if (show) {
             panel.classList.add('active');
-            fab.style.display = 'none';
+            fab.style.opacity = '0';
+            fab.style.pointerEvents = 'none';
             if (chat.innerHTML.trim() === "") {
                 chat.innerHTML = `<div class="ai-bubble">Merhaba ben ArAi, yakın zamanda aylık harcama takibinizi beraber yapacağız.</div>`;
             }
         } else {
             panel.classList.remove('active');
-            fab.style.display = 'flex';
+            fab.style.opacity = '1';
+            fab.style.pointerEvents = 'auto';
         }
     }
+
+    // Mobil Sürükleyerek Kapatma Mantığı
+    const aiPanel = document.getElementById('aiPanel');
+    aiPanel.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, {passive: true});
+    aiPanel.addEventListener('touchmove', (e) => {
+        let moveY = e.touches[0].clientY;
+        let diff = moveY - startY;
+        if (diff > 100) toggleAiPanel(false); // 100px aşağı kayarsa kapat
+    }, {passive: true});
 
     // TEMA KONTROL
     function toggleDarkMode() {
@@ -599,7 +627,10 @@
     function showExitConfirm() { document.getElementById('exitConfirmModal').classList.add('active'); }
     function closeExitConfirm() { document.getElementById('exitConfirmModal').classList.remove('active'); }
     function confirmExitApp() { if (window.AndroidInterface) window.AndroidInterface.exitApp(); }
-    function setAndroidSafeArea(topInsetPx) { if (topInsetPx > 0) document.documentElement.style.setProperty('--safe-area-inset-top', topInsetPx + 'px'); }
+    function setAndroidSafeArea(topInsetPx, bottomInsetPx = 0) { 
+        if (topInsetPx > 0) document.documentElement.style.setProperty('--safe-area-inset-top', topInsetPx + 'px'); 
+        if (bottomInsetPx > 0) document.documentElement.style.setProperty('--safe-area-inset-bottom', bottomInsetPx + 'px'); 
+    }
 
     // HESAP MAKİNESİ MANTIĞI
     let calcExp = "";
