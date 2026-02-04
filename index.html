@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>ArBudget</title>
+    <!-- GÜNCELLEME TAKİBİ İÇİN VERSİYON -->
+    <meta name="app-version" content="2.0.1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* GÜVENLİ ALAN VARSAYILAN */
+            /* GÜVENLİ ALAN */
             --safe-area-inset-top: 0px;
 
-            /* AÇIK TEMA RENK DEĞİŞKENLERİ */
+            /* AÇIK TEMA */
             --bg-color: #eef4ff;
             --bg-gradient: linear-gradient(180deg, #eef4ff, #f7faff);
             --glass-bg: rgba(255, 255, 255, 0.88);
@@ -28,9 +32,11 @@
             --accent-blue: #2563eb;
             --logo-green: #16a34a;
             --nav-arrow-color: #2563eb;
+            --ai-bubble-bg: #2563eb;
+            --ai-bubble-text: #ffffff;
         }
 
-        /* KARANLIK TEMA (OLED SİYAH) */
+        /* OLED SİYAH TEMA */
         .dark-mode {
             --bg-color: #000000;
             --bg-gradient: linear-gradient(180deg, #000000, #0a0a0a);
@@ -46,15 +52,16 @@
             --accent-blue: #3b82f6;
             --logo-green: #22c55e;
             --nav-arrow-color: #ffffff;
+            --ai-bubble-bg: #1e293b;
+            --ai-bubble-text: #f8fafc;
         }
 
-        /* SPLASH SCREEN STİLLERİ */
+        /* SPLASH SCREEN */
         #splash-screen {
             position: fixed;
             inset: 0;
             background: var(--bg-gradient);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 9999;
@@ -78,7 +85,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* KAYDIRMA ÇUBUKLARINI GİZLE */
+        /* GENEL SIFIRLAMA */
         * { scrollbar-width: none; -ms-overflow-style: none; box-sizing: border-box; }
         *::-webkit-scrollbar { display: none; }
 
@@ -111,7 +118,7 @@
         }
         .view.hidden { opacity: 0; filter: blur(15px); transform: scale(1.02); pointer-events: none; visibility: hidden; }
 
-        /* ÜST BAŞLIK VE NAVİGASYON */
+        /* HEADER */
         header, .calc-header, .summary-view-header {
             width: 100%;
             padding-top: calc(18px + var(--safe-area-inset-top));
@@ -129,7 +136,7 @@
 
         header { font-size: 20px; font-weight: 600; text-align: center; letter-spacing: -0.02em; position: relative; }
 
-        /* TEMA DEĞİŞTİRME BUTONU */
+        /* TEMA DEĞİŞTİRME */
         .theme-toggle {
             position: absolute; right: 16px; top: calc(var(--safe-area-inset-top) + 28px);
             transform: translateY(-50%);
@@ -140,9 +147,9 @@
             z-index: 110;
             color: var(--text-main);
         }
-        .theme-toggle svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .theme-toggle svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-        /* GERİ BUTONU BALONCUĞU */
+        /* GERİ BUTONU */
         .back-btn-bubble {
             position: absolute; left: 16px; top: calc(var(--safe-area-inset-top) + 28px);
             transform: translateY(-50%);
@@ -157,7 +164,7 @@
         .app { width: 100%; max-width: 420px; margin: auto; padding: 16px; padding-bottom: 40px; overflow-x: hidden; }
         .glass { background: var(--glass-bg); backdrop-filter: blur(16px); border-radius: 18px; padding: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.15); margin-bottom: 16px; border: 1px solid var(--border-color); width: 100%; overflow: hidden; }
 
-        /* TAKVİM AY NAVİGASYONU */
+        /* TAKVİM */
         .month-nav { display: flex; align-items: center; justify-content: center; height: 52px; position: relative; width: 100%; }
         .month-title { font-size: 15px; font-weight: 600; color: var(--text-main); }
         .arrow {
@@ -170,7 +177,6 @@
         .arrow.left { left: -8px; }
         .arrow.right { right: -8px; }
 
-        /* TAKVİM IZGARA SİSTEMİ */
         .weekdays, .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; width: 100%; }
         .weekdays { margin: 8px 0 6px; font-size: 10px; color: var(--text-sub); text-align: center; text-transform: uppercase; letter-spacing: 0.05em; }
 
@@ -187,12 +193,12 @@
         .dot.income { background: #16a34a; }
         .dot.expense { background: #dc2626; }
 
-        /* ÖZET ALANI */
+        /* ÖZET */
         .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; font-size: 12px; width: 100%; }
         .summary strong { display: block; font-size: 15px; margin-top: 4px; }
         .income { color: #16a34a; } .expense { color: #dc2626; }
 
-        /* İŞLEM BUTONLARI */
+        /* BUTONLAR */
         .action-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
         .btn-action { padding: 16px; border-radius: 16px; color: white; font-weight: 600; font-size: 14px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.1s; }
         .btn-action:active { transform: scale(0.97); }
@@ -200,7 +206,7 @@
         .btn-add { background: linear-gradient(135deg, #2563eb, #3b82f6); }
         .btn-summary-full { grid-column: span 2; background: linear-gradient(135deg, #16a34a, #22c55e); margin-top: 12px; }
 
-        /* HESAP MAKİNESİ LAYOUT */
+        /* HESAP MAKİNESİ */
         #calculator-screen { display: flex; flex-direction: column; }
         .calc-container { flex: 1; padding: 16px; display: flex; flex-direction: column; justify-content: flex-end; max-width: 420px; margin: 0 auto; width: 100%; }
         .calc-display { text-align: right; font-size: 42px; font-weight: 700; color: var(--text-main); word-break: break-all; padding: 10px; margin-bottom: 10px; min-height: 60px; display: flex; align-items: flex-end; justify-content: flex-end; line-height: 1.2; }
@@ -211,7 +217,7 @@
         .calc-key.eq { background: #f97316; color: white; border: none; }
         .calc-key.clear { color: #dc2626; }
 
-        /* MODALLAR VE FORM ELEMENTLERİ */
+        /* MODALLAR */
         .modal {
             position: fixed; inset: 0; background: var(--modal-overlay);
             display: none; justify-content: center; align-items: center;
@@ -236,10 +242,49 @@
         @keyframes slideDown { from { opacity: 0; transform: scaleY(0); } to { opacity: 1; transform: scaleY(1); } }
 
         .analiz-card { background: rgba(22, 163, 74, 0.1); border: 1px solid rgba(22, 163, 74, 0.2); color: #16a34a; padding: 12px; border-radius: 14px; font-size: 13px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; width: 100%; }
+
+        /* AR-AI BUTON VE PANEL */
+        .ai-fab {
+            position: fixed; right: 20px; bottom: 20px;
+            width: 56px; height: 56px; border-radius: 50%;
+            background: var(--glass-bg); border: 1px solid var(--border-color);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 500;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+        .ai-fab:active { transform: scale(0.9); }
+        .ai-fab img { width: 34px; height: 34px; border-radius: 50%; }
+
+        .ai-panel {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 70vh;
+            background: var(--bg-color); border-top-left-radius: 24px; border-top-right-radius: 24px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.2); z-index: 1100;
+            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; border-top: 1px solid var(--border-color);
+        }
+        .ai-panel.active { transform: translateY(0); }
+
+        .ai-panel-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+        .ai-panel-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
+        .ai-panel-title img { width: 30px; height: 30px; }
+        .ai-close-btn { font-size: 24px; font-weight: 300; color: var(--text-sub); }
+
+        .ai-chat-content { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+        .ai-bubble {
+            background: var(--ai-bubble-bg); color: var(--ai-bubble-text);
+            padding: 14px 18px; border-radius: 18px; border-top-left-radius: 4px;
+            font-size: 14px; line-height: 1.5; max-width: 85%; align-self: flex-start;
+            opacity: 0; transform: translateY(10px); animation: bubbleAppear 0.5s ease forwards;
+            animation-delay: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        @keyframes bubbleAppear { to { opacity: 1; transform: translateY(0); } }
+
+        .ai-footer { padding: 20px; padding-bottom: calc(20px + env(safe-area-inset-bottom)); border-top: 1px solid var(--border-color); text-align: center; font-size: 12px; color: var(--text-sub); font-style: italic; }
     </style>
 
     <script>
-        // İLK BAŞLATMA (TEMA VE SAFE AREA)
+        // SENKRON BAŞLATICI
         (function() {
             const params = new URLSearchParams(window.location.search);
             const topVal = params.get('top');
@@ -261,13 +306,31 @@
     </div>
 </div>
 
+<!-- AR-AI BUTON -->
+<div class="ai-fab" id="aiFab" onclick="toggleAiPanel(true)">
+    <img src="https://filedn.eu/liPnBWWQgeQVeGgdPoPnl8S/ArBudget/aibot.png" alt="ArAi Bot">
+</div>
+
+<!-- AR-AI PANEL -->
+<div class="ai-panel" id="aiPanel">
+    <div class="ai-panel-header">
+        <div class="ai-panel-title">
+            <img src="https://filedn.eu/liPnBWWQgeQVeGgdPoPnl8S/ArBudget/aibot.png" alt="ArAi">
+            <span>ArAi</span>
+        </div>
+        <button class="ai-close-btn" onclick="toggleAiPanel(false)">✕</button>
+    </div>
+    <div class="ai-chat-content" id="aiChat"></div>
+    <div class="ai-footer">ArAi şu an hazırlık aşamasında...</div>
+</div>
+
 <!-- ANA GÖRÜNÜM -->
 <div id="main-view" class="view">
     <header>
         ArBudget
         <button class="theme-toggle" onclick="toggleDarkMode()" id="themeBtn" aria-label="Temayı Değiştir">
-            <svg id="moonIcon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            <svg id="sunIcon" style="display:none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg id="moonIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg id="sunIcon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
         </button>
     </header>
     <div class="app">
@@ -293,7 +356,7 @@
     </div>
 </div>
 
-<!-- HESAP MAKİNESİ EKRANI -->
+<!-- HESAP MAKİNESİ -->
 <div id="calculator-screen" class="view hidden">
     <div class="calc-header">
         <button class="back-btn-bubble" onclick="toggleView('main')">‹</button>
@@ -324,7 +387,7 @@
     </div>
 </div>
 
-<!-- HESAP ÖZETİ EKRANI -->
+<!-- HESAP ÖZETİ -->
 <div id="summary-view" class="view hidden">
     <div class="summary-view-header">
         <button class="back-btn-bubble" onclick="toggleView('main')">‹</button>
@@ -336,11 +399,11 @@
             <div style="font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 16px;" id="statementNet">₺0</div>
             <div id="categoryAnalysis" class="analiz-card">
                 <span>📊</span>
-                <span id="analysisText">Bu ay henüz harcama verisi yok.</span>
+                <span id="analysisText">Veri işleniyor...</span>
             </div>
             <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-                <div style="font-size:12px; color:var(--text-sub);">Toplam Gelir<br><strong id="statementIncome" style="color:#16a34a; font-size:14px;">₺0</strong></div>
-                <div style="font-size:12px; color:var(--text-sub); text-align:right;">Toplam Gider<br><strong id="statementExpense" style="color:#dc2626; font-size:14px;">₺0</strong></div>
+                <div style="font-size:12px; color:var(--text-sub);">Gelir<br><strong id="statementIncome" style="color:#16a34a; font-size:14px;">₺0</strong></div>
+                <div style="font-size:12px; color:var(--text-sub); text-align:right;">Gider<br><strong id="statementExpense" style="color:#dc2626; font-size:14px;">₺0</strong></div>
             </div>
             <div style="font-size:13px; font-weight:700; color:var(--text-sub); border-bottom:1px solid var(--border-color); padding-bottom:8px; margin-bottom:10px;">İŞLEMLER</div>
             <div id="statementList"></div>
@@ -348,12 +411,12 @@
     </div>
 </div>
 
-<!-- MODAL PENCERELERİ -->
+<!-- MODALLAR -->
 <div class="modal" id="exitConfirmModal">
     <div class="glass modal-card">
         <b style="font-size:17px; display:block; margin-bottom:8px;">Uygulamadan Çıkılsın mı?</b>
         <p style="font-size:14px; color:var(--text-sub); margin-bottom:20px;">Değişiklikleriniz kaydedildi.</p>
-        <div style="display: flex; gap: 10px; margin-top: 20px; width: 100%;">
+        <div style="display: flex; gap: 10px; width: 100%;">
             <button class="form-btn" style="flex: 1; background: var(--back-btn-bg); color: var(--text-sub);" onclick="closeExitConfirm()">Vazgeç</button>
             <button class="form-btn" style="flex: 1; background: #ef4444; color: white;" onclick="confirmExitApp()">Çıkış Yap</button>
         </div>
@@ -372,7 +435,7 @@
 
 <div class="modal" id="addModal">
     <div class="glass modal-card">
-        <strong id="addDate"></strong><br><br>
+        <strong id="addDate">Kayıt Ekle</strong><br><br>
         <input id="desc" placeholder="Kategori" readonly onclick="openCatModal()">
         <div id="faturaDetailArea">
             <input id="subDesc" placeholder="Fatura Detayı (Örn: Doğalgaz)">
@@ -403,7 +466,7 @@
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth();
 
-    // AÇILIŞ EKRANI YÖNETİMİ
+    // AÇILIŞ EKRANI
     window.addEventListener('load', () => {
         setTimeout(() => {
             const splash = document.getElementById('splash-screen');
@@ -411,13 +474,29 @@
         }, 2500);
     });
 
-    // TEMA YÖNETİMİ
+    // AR-AI KONTROL
+    function toggleAiPanel(show) {
+        const panel = document.getElementById('aiPanel');
+        const chat = document.getElementById('aiChat');
+        const fab = document.getElementById('aiFab');
+        if (show) {
+            panel.classList.add('active');
+            fab.style.display = 'none';
+            if (chat.innerHTML.trim() === "") {
+                chat.innerHTML = `<div class="ai-bubble">Merhaba ben ArAi, yakın zamanda aylık harcama takibinizi beraber yapacağız.</div>`;
+            }
+        } else {
+            panel.classList.remove('active');
+            fab.style.display = 'flex';
+        }
+    }
+
+    // TEMA KONTROL
     function toggleDarkMode() {
         const isDark = document.documentElement.classList.toggle('dark-mode');
         updateThemeIcon(isDark);
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }
-
     function updateThemeIcon(isDark) {
         const moon = document.getElementById('moonIcon');
         const sun = document.getElementById('sunIcon');
@@ -427,13 +506,7 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-        const isDark = document.documentElement.classList.contains('dark-mode');
-        updateThemeIcon(isDark);
-        renderCalendar();
-    });
-
-    // SAYFA DEĞİŞTİRME
+    // GÖRÜNÜM KONTROL
     function toggleView(view) {
         const ids = ['main-view', 'calculator-screen', 'summary-view'];
         ids.forEach(id => document.getElementById(id).classList.add('hidden'));
@@ -442,7 +515,7 @@
         else document.getElementById('main-view').classList.remove('hidden');
     }
 
-    // TAKVİM MANTIĞI
+    // TAKVİM İŞLEMLERİ
     function renderCalendar() {
         const cal = document.getElementById("calendar");
         if (!cal) return;
@@ -468,7 +541,7 @@
         updateSummary();
     }
 
-    // ÖZET VE ANALİZ
+    // EKSTRE RENDER
     function renderStatement() {
         const listEl = document.getElementById("statementList");
         if (!listEl) return;
@@ -499,7 +572,7 @@
             analysisEl.innerText = `En çok harcama: %${Math.round((catSpends[topCat] / exp) * 100)} ile ${topCat}`;
         } else analysisEl.innerText = "Bu ay henüz harcama verisi yok.";
         
-        if (!allTransactions.length) listEl.innerHTML = "<p style='text-align:center; padding:30px; color:var(--text-sub); font-size:13px;'>İşlem bulunamadı.</p>";
+        if (!allTransactions.length) listEl.innerHTML = "<p style='text-align:center; padding:30px; color:var(--text-sub);'>İşlem bulunamadı.</p>";
         else {
             allTransactions.forEach(t => {
                 const row = document.createElement("div");
@@ -510,27 +583,25 @@
         }
     }
 
-    // YARDIMCI İŞLEVLER
+    // YARDIMCI FONKSİYONLAR
     function changeMonth(dir) { currentMonth += dir; if (currentMonth < 0) { currentMonth = 11; currentYear--; } else if (currentMonth > 11) { currentMonth = 0; currentYear++; } renderCalendar(); }
     function openView(key) { currentKey = key; const [yy, mm, dd] = key.split("-").map(Number); document.getElementById("viewDate").innerText = new Date(yy, mm-1, dd).toLocaleDateString("tr-TR", { day: "numeric", month: "long" }); const list = data[key] || []; document.getElementById("dayList").innerHTML = list.length ? list.map((i, idx) => `<div class="list-item ${i.type}"><div class="item-info"><span style="font-weight:600">${i.desc}</span><br><span style="font-weight:700; font-size:14px;">₺${i.amount.toLocaleString("tr-TR")}</span></div><button class="btn-delete" onclick="deleteEntry('${key}', ${idx})">✕</button></div>`).join("") : "<p style='padding:20px; text-align:center; color:var(--text-sub);'>Harcama yok.</p>"; document.getElementById("viewModal").classList.add("active"); }
-    function openAdd(key) { currentKey = key; document.getElementById("viewModal").classList.remove("active"); document.getElementById("addDate").innerText = "Kayıt Ekle"; document.getElementById("desc").value = ""; document.getElementById("subDesc").value = ""; document.getElementById("amount").value = ""; document.getElementById("faturaDetailArea").style.display = "none"; document.getElementById("addModal").classList.add("active"); }
+    function openAdd(key) { currentKey = key; document.getElementById("viewModal").classList.remove("active"); document.getElementById("desc").value = ""; document.getElementById("subDesc").value = ""; document.getElementById("amount").value = ""; document.getElementById("faturaDetailArea").style.display = "none"; document.getElementById("addModal").classList.add("active"); }
     function quickAdd() { const t = new Date(); openAdd(`${t.getFullYear()}-${t.getMonth()+1}-${t.getDate()}`); }
     function openCatModal() { if(document.getElementById("type").value === "expense") document.getElementById("catModal").classList.add("active"); }
     function setCat(val) { document.getElementById("desc").value = val; document.getElementById("catModal").classList.remove("active"); document.getElementById("faturaDetailArea").style.display = (val === 'Fatura' ? "block" : "none"); }
     function handleTypeChange() { const t = document.getElementById("type").value; const d = document.getElementById("desc"); if (t === "expense") { d.readOnly = true; d.placeholder = "Kategori seç"; } else { d.readOnly = false; d.placeholder = "Gelir Kaynağı"; document.getElementById("faturaDetailArea").style.display = "none"; } }
     function saveEntry() { const amt = Number(document.getElementById("amount").value); let desc = document.getElementById("desc").value || "İşlem"; const subDesc = document.getElementById("subDesc").value; const type = document.getElementById("type").value; if (!amt) return; if (desc === 'Fatura' && subDesc) desc = `Fatura (${subDesc})`; if (!data[currentKey]) data[currentKey] = []; data[currentKey].push({ desc, amount: amt, type }); localStorage.setItem("finans_takip_data_v2", JSON.stringify(data)); document.getElementById("addModal").classList.remove("active"); renderCalendar(); }
     function deleteEntry(key, idx) { if (data[key]) { data[key].splice(idx, 1); if (!data[key].length) delete data[key]; localStorage.setItem("finans_takip_data_v2", JSON.stringify(data)); openView(key); renderCalendar(); } }
-    function updateSummary() { let inc = 0, exp = 0; const prefix = `${currentYear}-${currentMonth + 1}-`; Object.keys(data).forEach(k => { if (k.startsWith(prefix)) data[k].forEach(i => i.type === "income" ? inc += i.amount : exp += i.amount); }); document.getElementById("sumIncome").innerText = "₺" + inc.toLocaleString("tr-TR"); document.getElementById("sumExpense").innerText = "₺" + exp.toLocaleString("tr-TR"); const netEl = document.getElementById("sumNet"); const net = inc - exp; netEl.innerText = "₺" + net.toLocaleString("tr-TR"); netEl.style.color = net >= 0 ? "#16a34a" : "#dc2626"; }
+    function updateSummary() { let inc = 0, exp = 0; const prefix = `${currentYear}-${currentMonth + 1}-`; Object.keys(data).forEach(k => { if (k.startsWith(prefix)) data[k].forEach(i => i.type === "income" ? inc += i.amount : exp += i.amount); }); document.getElementById("sumIncome").innerText = "₺" + inc.toLocaleString("tr-TR"); document.getElementById("sumExpense").innerText = "₺" + exp.toLocaleString("tr-TR"); const net = inc - exp; const netEl = document.getElementById("sumNet"); netEl.innerText = "₺" + net.toLocaleString("tr-TR"); netEl.style.color = net >= 0 ? "#16a34a" : "#dc2626"; }
     
-    // ANDROID ENTEGRASYONLARI
+    // ANDROID KÖPRÜLERİ
     function showExitConfirm() { document.getElementById('exitConfirmModal').classList.add('active'); }
     function closeExitConfirm() { document.getElementById('exitConfirmModal').classList.remove('active'); }
     function confirmExitApp() { if (window.AndroidInterface) window.AndroidInterface.exitApp(); }
     function setAndroidSafeArea(topInsetPx) { if (topInsetPx > 0) document.documentElement.style.setProperty('--safe-area-inset-top', topInsetPx + 'px'); }
 
-    document.querySelectorAll(".modal").forEach(m => { m.onclick = e => { if (e.target === m) m.classList.remove("active"); }; });
-
-    // HESAP MAKİNESİ FONKSİYONLARI
+    // HESAP MAKİNESİ MANTIĞI
     let calcExp = "";
     function calcNum(n) { if (calcExp === "0") calcExp = ""; calcExp += n; updateCalc(); }
     function calcOp(op) { if (!calcExp && op !== '-') return; const last = calcExp.slice(-1); if (['+','-','*','/'].includes(last)) calcExp = calcExp.slice(0, -1) + op; else calcExp += op; updateCalc(); }
@@ -538,6 +609,13 @@
     function calcBack() { calcExp = calcExp.slice(0,-1); updateCalc(); }
     function calcEqual() { try { if (!calcExp) return; calcExp = String(eval(calcExp.replace(/×/g, "*").replace(/÷/g, "/"))); updateCalc(); } catch(e) { document.getElementById("calcDisplay").innerText = "Hata"; calcExp = ""; } }
     function updateCalc() { document.getElementById("calcDisplay").innerText = calcExp.replace(/\*/g, "×").replace(/\//g, "÷") || "0"; }
+
+    // BAŞLATMA
+    window.addEventListener('DOMContentLoaded', () => {
+        updateThemeIcon(document.documentElement.classList.contains('dark-mode'));
+        renderCalendar();
+    });
+    document.querySelectorAll(".modal").forEach(m => { m.onclick = e => { if (e.target === m) m.classList.remove("active"); }; });
 </script>
 </body>
 </html>
