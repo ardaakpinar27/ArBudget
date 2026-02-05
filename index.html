@@ -421,9 +421,13 @@
 <div class="modal" id="catModal">
     <div class="glass modal-card">
         <b>Kategori Seç</b><br><br>
+        <button class="form-btn" onclick="setCat('Gıda')">Gıda</button>
         <button class="form-btn" onclick="setCat('Fatura')">Fatura</button>
-        <button class="form-btn" onclick="setCat('Kredi')">Kredi</button>
         <button class="form-btn" onclick="setCat('Kira')">Kira</button>
+        <button class="form-btn" onclick="setCat('Sağlık')">Sağlık</button>
+        <button class="form-btn" onclick="setCat('Eğitim')">Eğitim</button>
+        <button class="form-btn" onclick="setCat('Kredi')">Kredi</button>
+        <button class="form-btn" onclick="setCat('Tasarruf')">Tasarruf</button>
         <button class="form-btn" onclick="setCat('Diğer')">Diğer</button>
     </div>
 </div>
@@ -631,9 +635,9 @@
     function showExitConfirm() { document.getElementById('exitConfirmModal').classList.add('active'); }
     function closeExitConfirm() { document.getElementById('exitConfirmModal').classList.remove('active'); }
     function confirmExitApp() { if (window.AndroidInterface) window.AndroidInterface.exitApp(); }
-    function setAndroidSafeArea(topInsetPx, bottomInsetPx = 0) { 
-        if (topInsetPx >= 0) document.documentElement.style.setProperty('--safe-area-inset-top', topInsetPx + 'px'); 
-        if (bottomInsetPx >= 0) document.documentElement.style.setProperty('--safe-area-inset-bottom', bottomInsetPx + 'px'); 
+    function setAndroidSafeArea(topInsetPx, bottomInsetPx = 0) { 
+        if (topInsetPx >= 0) document.documentElement.style.setProperty('--safe-area-inset-top', topInsetPx + 'px'); 
+        if (bottomInsetPx >= 0) document.documentElement.style.setProperty('--safe-area-inset-bottom', bottomInsetPx + 'px'); 
     }
 
     // HESAP MAKİNESİ MANTIĞI
