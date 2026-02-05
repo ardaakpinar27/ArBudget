@@ -14,7 +14,7 @@
 
     <style>
         :root {
-            /* GÜVENLİ ALANLAR (MOBİL İÇİN KRİTİK) */
+            /* GÜVENLİ ALANLAR */
             --safe-area-inset-top: 0px;
             --safe-area-inset-bottom: 0px;
 
@@ -59,24 +59,15 @@
 
         /* SPLASH SCREEN */
         #splash-screen {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-gradient);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s;
+            position: fixed; inset: 0; background: var(--bg-gradient);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 9999; transition: opacity 0.6s ease, visibility 0.6s;
         }
         #splash-screen.fade-out { opacity: 0; visibility: hidden; }
 
         .splash-logo {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            display: flex;
-            align-items: center;
+            font-size: 42px; font-weight: 800; letter-spacing: -0.05em;
+            display: flex; align-items: center;
             animation: splashPop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .splash-logo .ar { color: var(--logo-green); margin-right: 1px; }
@@ -87,37 +78,26 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* GENEL MOBİL SIFIRLAMA */
         * { scrollbar-width: none; -ms-overflow-style: none; box-sizing: border-box; }
         *::-webkit-scrollbar { display: none; }
 
         * {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            font-weight: 500;
-            user-select: none;
-            -webkit-user-select: none;
+            font-weight: 500; user-select: none; -webkit-user-select: none;
             -webkit-tap-highlight-color: transparent;
             transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
-        html, body {
-            margin: 0; padding: 0; height: 100%; width: 100%;
-            overflow: hidden; background: var(--bg-color);
-            position: fixed;
-        }
-
+        html, body { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: var(--bg-color); position: fixed; }
         body { background: var(--bg-gradient); color: var(--text-main); overflow: hidden; }
         button { outline: none; border: none; background: none; cursor: pointer; }
 
         /* GÖRÜNÜM TAŞIYICILARI */
         .view {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            overflow-y: auto; overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
+            overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
             transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
-            opacity: 1; visibility: visible;
-            background: var(--bg-gradient);
-            z-index: 1;
+            opacity: 1; visibility: visible; background: var(--bg-gradient); z-index: 1;
         }
         .view.hidden { opacity: 0; filter: blur(15px); transform: scale(1.02); pointer-events: none; visibility: hidden; }
 
@@ -125,12 +105,8 @@
         header, .calc-header, .summary-view-header {
             width: 100%;
             padding-top: calc(18px + var(--safe-area-inset-top));
-            padding-bottom: 18px;
-            padding-left: 16px;
-            padding-right: 16px;
-            background: var(--header-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            padding-bottom: 18px; padding-left: 16px; padding-right: 16px;
+            background: var(--header-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             position: sticky; top: 0; z-index: 100;
             display: flex; align-items: center; justify-content: center;
@@ -139,32 +115,23 @@
 
         header { font-size: 20px; font-weight: 600; text-align: center; letter-spacing: -0.02em; position: relative; }
 
-        /* TEMA DEĞİŞTİRME */
         .theme-toggle {
             position: absolute; right: 16px; top: calc(var(--safe-area-inset-top) + 28px);
-            transform: translateY(-50%);
-            width: 36px; height: 36px; border-radius: 50%;
+            transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            background: var(--back-btn-bg);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            z-index: 110;
-            color: var(--text-main);
+            background: var(--back-btn-bg); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            z-index: 110; color: var(--text-main);
         }
-        .theme-toggle svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-        /* GERİ BUTONU */
         .back-btn-bubble {
             position: absolute; left: 16px; top: calc(var(--safe-area-inset-top) + 28px);
-            transform: translateY(-50%);
-            width: 36px; height: 36px; border-radius: 50%;
+            transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%;
             background: var(--back-btn-bg); color: var(--accent-blue);
             display: flex; align-items: center; justify-content: center;
-            font-size: 18px; font-weight: 700;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            z-index: 110;
+            font-size: 18px; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.06); z-index: 110;
         }
 
-        .app { width: 100%; max-width: 420px; margin: auto; padding: 16px; padding-bottom: 80px; overflow-x: hidden; }
+        .app { width: 100%; max-width: 420px; margin: auto; padding: 16px; padding-bottom: 100px; overflow-x: hidden; }
         .glass { background: var(--glass-bg); backdrop-filter: blur(16px); border-radius: 18px; padding: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.15); margin-bottom: 16px; border: 1px solid var(--border-color); width: 100%; overflow: hidden; }
 
         /* TAKVİM */
@@ -172,10 +139,8 @@
         .month-title { font-size: 15px; font-weight: 600; color: var(--text-main); }
         .arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            width: 44px; height: 44px;
-            color: var(--nav-arrow-color);
-            font-size: 26px; font-weight: 700;
-            display: flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px; color: var(--nav-arrow-color);
+            font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center;
         }
         .arrow.left { left: -8px; }
         .arrow.right { right: -8px; }
@@ -246,11 +211,9 @@
 
         .analiz-card { background: rgba(22, 163, 74, 0.1); border: 1px solid rgba(22, 163, 74, 0.2); color: #16a34a; padding: 12px; border-radius: 14px; font-size: 13px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; width: 100%; }
 
-        /* AR-AI BUTON VE PANEL */
+        /* AR-AI BUTON VE PANEL (SAFE AREA UYUMLU) */
         .ai-fab {
-            position: fixed; 
-            right: 20px; 
-            bottom: calc(20px + var(--safe-area-inset-bottom));
+            position: fixed; right: 20px; bottom: calc(20px + var(--safe-area-inset-bottom));
             width: 62px; height: 62px; border-radius: 50%;
             background: var(--glass-bg); border: 1px solid var(--border-color);
             box-shadow: 0 12px 30px rgba(0,0,0,0.18); z-index: 500;
@@ -278,33 +241,23 @@
         .ai-close-btn { font-size: 26px; font-weight: 300; color: var(--text-sub); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
 
         .ai-chat-content { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; -webkit-overflow-scrolling: touch; }
+        
         .ai-bubble {
             background: var(--ai-bubble-bg); color: var(--ai-bubble-text);
             padding: 16px 20px; border-radius: 22px; border-top-left-radius: 4px;
             font-size: 15px; line-height: 1.6; max-width: 88%; align-self: flex-start;
             opacity: 0; transform: translateY(15px); animation: bubbleAppear 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-            animation-delay: 0.4s; box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
         }
+        .ai-bubble.user { align-self: flex-end; background: var(--back-btn-bg); color: var(--text-main); border-top-left-radius: 22px; border-top-right-radius: 4px; }
+        
         @keyframes bubbleAppear { to { opacity: 1; transform: translateY(0); } }
 
-        .ai-footer { padding: 20px; text-align: center; font-size: 13px; color: var(--text-sub); font-style: italic; opacity: 0.7; }
+        .ai-actions { padding: 15px 20px; display: flex; flex-wrap: wrap; gap: 10px; border-top: 1px solid var(--border-color); }
+        .ai-btn { background: var(--item-bg); border: 1px solid var(--border-color); padding: 12px 18px; border-radius: 14px; font-size: 13px; font-weight: 700; color: var(--text-main); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        .ai-footer { padding: 15px; text-align: center; font-size: 13px; color: var(--text-sub); font-style: italic; opacity: 0.7; }
     </style>
-
-    <script>
-        // MOBİL BAŞLATICI (TEMA VE SAFE AREA)
-        (function() {
-            // URL parametreleri yerine artık JS fonksiyonuna güveniyoruz,
-            // ancak manuel URL açılışları için bu kısmı koruyoruz.
-            const params = new URLSearchParams(window.location.search);
-            const topVal = params.get('top');
-            if (topVal) document.documentElement.style.setProperty('--safe-area-inset-top', topVal + 'px');
-
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.documentElement.classList.add('dark-mode');
-            }
-        })();
-    </script>
 </head>
 <body>
 
@@ -326,12 +279,19 @@
     <div class="ai-panel-header">
         <div class="ai-panel-title">
             <img src="https://filedn.eu/liPnBWWQgeQVeGgdPoPnl8S/ArBudget/aibot.png" alt="ArAi">
-            <span>ArAi</span>
+            <span>ArAi Danışman</span>
         </div>
         <button class="ai-close-btn" onclick="toggleAiPanel(false)" aria-label="Kapat">✕</button>
     </div>
-    <div class="ai-chat-content" id="aiChat"></div>
-    <div class="ai-footer">ArAi şu an hazırlık aşamasında...</div>
+    <div class="ai-chat-content" id="aiChat">
+        <!-- Mesajlar JS ile doldurulacak -->
+    </div>
+    <div class="ai-actions">
+        <button class="ai-btn" onclick="askAi('status')">📊 Durum Analizi</button>
+        <button class="ai-btn" onclick="askAi('spending')">💸 Harcama Hızım</button>
+        <button class="ai-btn" onclick="askAi('advice')">💡 Öneri Ver</button>
+    </div>
+    <div class="ai-footer">ArAi Beta - Verilerine dayalı analiz yapar.</div>
 </div>
 
 <!-- ANA GÖRÜNÜM -->
@@ -425,8 +385,7 @@
 <div class="modal" id="exitConfirmModal">
     <div class="glass modal-card">
         <b style="font-size:17px; display:block; margin-bottom:8px;">Uygulamadan Çıkılsın mı?</b>
-        <p style="font-size:14px; color:var(--text-sub); margin-bottom:20px;">Değişiklikleriniz kaydedildi.</p>
-        <div style="display: flex; gap: 10px; width: 100%;">
+        <div style="display: flex; gap: 10px; margin-top: 20px; width: 100%;">
             <button class="form-btn" style="flex: 1; background: var(--back-btn-bg); color: var(--text-sub);" onclick="closeExitConfirm()">Vazgeç</button>
             <button class="form-btn" style="flex: 1; background: #ef4444; color: white;" onclick="confirmExitApp()">Çıkış Yap</button>
         </div>
@@ -462,10 +421,10 @@
 <div class="modal" id="catModal">
     <div class="glass modal-card">
         <b>Kategori Seç</b><br><br>
-        <button class="form-btn" onclick="setCat('Fatura')" style="margin-bottom:8px">Fatura</button>
-        <button class="form-btn" onclick="setCat('Kredi')" style="margin-bottom:8px">Kredi</button>
-        <button class="form-btn" onclick="setCat('Kira')" style="margin-bottom:8px">Kira</button>
-        <button class="form-btn" onclick="setCat('Diğer')" style="margin-bottom:8px">Diğer</button>
+        <button class="form-btn" onclick="setCat('Fatura')">Fatura</button>
+        <button class="form-btn" onclick="setCat('Kredi')">Kredi</button>
+        <button class="form-btn" onclick="setCat('Kira')">Kira</button>
+        <button class="form-btn" onclick="setCat('Diğer')">Diğer</button>
     </div>
 </div>
 
@@ -476,16 +435,63 @@
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth();
 
-    // AÇILIŞ EKRANI YÖNETİMİ
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const splash = document.getElementById('splash-screen');
-            if (splash) splash.classList.add('fade-out');
-        }, 2500);
-    });
+    // 1. ARAI MANTIK MOTORU (VAKUR & TEMKİNLİ)
+    function askAi(type) {
+        const chat = document.getElementById('aiChat');
+        const questionBtn = document.querySelector(`[onclick="askAi('${type}')"]`);
+        const questionText = questionBtn ? questionBtn.innerText : "";
+        let response = "";
 
-    // AR-AI KONTROL (MOBİL SÜRÜKLEME DESTEKLİ)
-    let startY = 0;
+        // Veri Analizi
+        let totalIncome = 0; let totalExpense = 0;
+        const prefix = `${currentYear}-${currentMonth + 1}-`;
+        Object.keys(data).forEach(k => {
+            if (k.startsWith(prefix)) {
+                data[k].forEach(i => i.type === "income" ? totalIncome += i.amount : totalExpense += i.amount);
+            }
+        });
+
+        const net = totalIncome - totalExpense;
+        const dayOfMonth = new Date().getDate();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        // Harcama Hızı: (Harcama/Gelir) / (Geçen Gün/Toplam Gün)
+        const velocity = (totalExpense / (totalIncome || 1)) / (dayOfMonth / daysInMonth);
+
+        if (type === 'status') {
+            if (net < 0) {
+                response = "Bakiye dengemiz şu an hassas bir noktada. Önceliğimizi zorunlu giderlere vererek süreci yönetmemiz gerekli.";
+            } else if (totalIncome === 0 && totalExpense === 0) {
+                response = "Henüz bu ay için bir veri girişi yapmamışız. Planlamamızı birlikte yapmaya ne dersin?";
+            } else {
+                response = `Şu an ₺${net.toLocaleString('tr-TR')} artıdayız. Bu disiplinli tabloyu ay sonuna kadar koruyabilirsek hedefimize ulaşacağız.`;
+            }
+        } 
+        else if (type === 'spending') {
+            if (velocity > 1.1) {
+                response = "Harcama hızımızda bir artış gözlemliyorum. Ayın geri kalanında dengeyi korumak için biraz daha kontrollü ilerlememiz faydalı olabilir.";
+            } else if (totalIncome === 0) {
+                response = "Henüz bir gelir girmediğimiz için hızı hesaplayamıyorum. Önce bütçeni tanımlayalım mı?";
+            } else {
+                response = "Harcama hızımız oldukça ideal. Bütçe planımıza sadık ilerliyoruz, bu tempoyu korumalıyız.";
+            }
+        }
+        else if (type === 'advice') {
+            if (totalExpense > totalIncome * 0.6) {
+                response = "Bu ayki harcamalarımız gelirimizin büyük kısmını kapsamış durumda. Gelecek ay için sabit ödemeleri veya abonelikleri gözden geçirelim mi?";
+            } else {
+                response = "Bütçen şu an oldukça güvenli bir alanda. Bu ayki tasarrufunu birikim hedefin için ayırmayı düşünebilirsin.";
+            }
+        }
+
+        // Chat'e ekle
+        chat.innerHTML += `<div class="ai-bubble user">${questionText}</div>`;
+        setTimeout(() => {
+            chat.innerHTML += `<div class="ai-bubble">${response}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }, 600);
+    }
+
+    // AR-AI PANEL KONTROLÜ
     function toggleAiPanel(show) {
         const panel = document.getElementById('aiPanel');
         const chat = document.getElementById('aiChat');
@@ -495,7 +501,7 @@
             fab.style.opacity = '0';
             fab.style.pointerEvents = 'none';
             if (chat.innerHTML.trim() === "") {
-                chat.innerHTML = `<div class="ai-bubble">Merhaba ben ArAi, yakın zamanda aylık harcama takibinizi beraber yapacağız.</div>`;
+                chat.innerHTML = `<div class="ai-bubble">Merhaba, ben ArAi. Mevcut verilerini analiz ettim. Durumunu birlikte inceleyelim mi?</div>`;
             }
         } else {
             panel.classList.remove('active');
@@ -504,39 +510,15 @@
         }
     }
 
+    // Mobil Sürükleyerek Kapatma
     const aiPanel = document.getElementById('aiPanel');
     aiPanel.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, {passive: true});
     aiPanel.addEventListener('touchmove', (e) => {
         let moveY = e.touches[0].clientY;
-        let diff = moveY - startY;
-        if (diff > 100) toggleAiPanel(false); 
+        if (moveY - startY > 100) toggleAiPanel(false); 
     }, {passive: true});
 
-    // TEMA KONTROLÜ
-    function toggleDarkMode() {
-        const isDark = document.documentElement.classList.toggle('dark-mode');
-        updateThemeIcon(isDark);
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    }
-    function updateThemeIcon(isDark) {
-        const moon = document.getElementById('moonIcon');
-        const sun = document.getElementById('sunIcon');
-        if (moon && sun) {
-            moon.style.display = isDark ? 'none' : 'block';
-            sun.style.display = isDark ? 'block' : 'none';
-        }
-    }
-
-    // SAYFA DEĞİŞTİRME
-    function toggleView(view) {
-        const ids = ['main-view', 'calculator-screen', 'summary-view'];
-        ids.forEach(id => document.getElementById(id).classList.add('hidden'));
-        if (view === 'calc') document.getElementById('calculator-screen').classList.remove('hidden');
-        else if (view === 'summary') { renderStatement(); document.getElementById('summary-view').classList.remove('hidden'); }
-        else document.getElementById('main-view').classList.remove('hidden');
-    }
-
-    // TAKVİM İŞLEMLERİ
+    // 2. TEMEL FONKSİYONLAR & TAKVİM
     function renderCalendar() {
         const cal = document.getElementById("calendar");
         if (!cal) return;
@@ -555,11 +537,21 @@
             el.className = "day";
             el.innerHTML = `<strong>${d}</strong><div class="dots">${hasInc ? '<div class="dot income"></div>' : ''}${hasExp ? '<div class="dot expense"></div>' : ''}</div>`;
             el.onclick = () => openView(key);
-            el.onmousedown = el.ontouchstart = () => pressTimer = setTimeout(() => openAdd(key), 600);
-            el.onmouseup = el.onmouseleave = el.ontouchend = () => clearTimeout(pressTimer);
             cal.appendChild(el);
         }
         updateSummary();
+    }
+
+    function updateSummary() {
+        let inc = 0, exp = 0;
+        const prefix = `${currentYear}-${currentMonth + 1}-`;
+        Object.keys(data).forEach(k => { if (k.startsWith(prefix)) data[k].forEach(i => i.type === "income" ? inc += i.amount : exp += i.amount); });
+        document.getElementById("sumIncome").innerText = "₺" + inc.toLocaleString("tr-TR");
+        document.getElementById("sumExpense").innerText = "₺" + exp.toLocaleString("tr-TR");
+        const net = inc - exp;
+        const netEl = document.getElementById("sumNet");
+        netEl.innerText = "₺" + net.toLocaleString("tr-TR");
+        netEl.style.color = net >= 0 ? "#16a34a" : "#dc2626";
     }
 
     // EKSTRE RENDER
@@ -575,9 +567,8 @@
         document.getElementById("statementMonthName").innerText = `${monthName} Ekstresi`;
         Object.keys(data).forEach(key => {
             if (key.startsWith(prefix)) {
-                const day = key.split("-")[2];
                 data[key].forEach(item => {
-                    allTransactions.push({ ...item, day: parseInt(day) });
+                    allTransactions.push({ ...item, day: parseInt(key.split("-")[2]) });
                     if (item.type === "income") inc += item.amount;
                     else { exp += item.amount; let catBase = item.desc.split(" (")[0]; catSpends[catBase] = (catSpends[catBase] || 0) + item.amount; }
                 });
@@ -587,6 +578,7 @@
         document.getElementById("statementIncome").innerText = `₺${inc.toLocaleString("tr-TR")}`;
         document.getElementById("statementExpense").innerText = `₺${exp.toLocaleString("tr-TR")}`;
         document.getElementById("statementNet").innerText = `₺${(inc - exp).toLocaleString("tr-TR")}`;
+        
         const analysisEl = document.getElementById("analysisText");
         if (exp > 0) {
             let topCat = Object.keys(catSpends).reduce((a, b) => catSpends[a] > catSpends[b] ? a : b);
@@ -614,33 +606,51 @@
     function handleTypeChange() { const t = document.getElementById("type").value; const d = document.getElementById("desc"); if (t === "expense") { d.readOnly = true; d.placeholder = "Kategori seç"; } else { d.readOnly = false; d.placeholder = "Gelir Kaynağı"; document.getElementById("faturaDetailArea").style.display = "none"; } }
     function saveEntry() { const amt = Number(document.getElementById("amount").value); let desc = document.getElementById("desc").value || "İşlem"; const subDesc = document.getElementById("subDesc").value; const type = document.getElementById("type").value; if (!amt) return; if (desc === 'Fatura' && subDesc) desc = `Fatura (${subDesc})`; if (!data[currentKey]) data[currentKey] = []; data[currentKey].push({ desc, amount: amt, type }); localStorage.setItem("finans_takip_data_v2", JSON.stringify(data)); document.getElementById("addModal").classList.remove("active"); renderCalendar(); }
     function deleteEntry(key, idx) { if (data[key]) { data[key].splice(idx, 1); if (!data[key].length) delete data[key]; localStorage.setItem("finans_takip_data_v2", JSON.stringify(data)); openView(key); renderCalendar(); } }
-    function updateSummary() { let inc = 0, exp = 0; const prefix = `${currentYear}-${currentMonth + 1}-`; Object.keys(data).forEach(k => { if (k.startsWith(prefix)) data[k].forEach(i => i.type === "income" ? inc += i.amount : exp += i.amount); }); document.getElementById("sumIncome").innerText = "₺" + inc.toLocaleString("tr-TR"); document.getElementById("sumExpense").innerText = "₺" + exp.toLocaleString("tr-TR"); const net = inc - exp; const netEl = document.getElementById("sumNet"); netEl.innerText = "₺" + net.toLocaleString("tr-TR"); netEl.style.color = net >= 0 ? "#16a34a" : "#dc2626"; }
     
+    // GÖRÜNÜM KONTROLÜ
+    function toggleView(view) {
+        const ids = ['main-view', 'calculator-screen', 'summary-view'];
+        ids.forEach(id => document.getElementById(id).classList.add('hidden'));
+        if (view === 'calc') document.getElementById('calculator-screen').classList.remove('hidden');
+        else if (view === 'summary') { renderStatement(); document.getElementById('summary-view').classList.remove('hidden'); }
+        else document.getElementById('main-view').classList.remove('hidden');
+    }
+
+    // TEMA KONTROLÜ
+    function toggleDarkMode() {
+        const isDark = document.documentElement.classList.toggle('dark-mode');
+        updateThemeIcon(isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+    function updateThemeIcon(isDark) {
+        const moon = document.getElementById('moonIcon'); const sun = document.getElementById('sunIcon');
+        if (moon && sun) { moon.style.display = isDark ? 'none' : 'block'; sun.style.display = isDark ? 'block' : 'none'; }
+    }
+
     // ANDROID KÖPRÜLERİ
     function showExitConfirm() { document.getElementById('exitConfirmModal').classList.add('active'); }
     function closeExitConfirm() { document.getElementById('exitConfirmModal').classList.remove('active'); }
     function confirmExitApp() { if (window.AndroidInterface) window.AndroidInterface.exitApp(); }
-    
-    // YENİ GÜVENLİ ALAN FONKSİYONU
-    function setAndroidSafeArea(topInsetPx, bottomInsetPx = 0) { 
-        if (topInsetPx > 0) document.documentElement.style.setProperty('--safe-area-inset-top', topInsetPx + 'px'); 
-        if (bottomInsetPx > 0) document.documentElement.style.setProperty('--safe-area-inset-bottom', bottomInsetPx + 'px'); 
+    function setAndroidSafeArea(topInsetPx, bottomInsetPx = 0) { 
+        if (topInsetPx >= 0) document.documentElement.style.setProperty('--safe-area-inset-top', topInsetPx + 'px'); 
+        if (bottomInsetPx >= 0) document.documentElement.style.setProperty('--safe-area-inset-bottom', bottomInsetPx + 'px'); 
     }
 
     // HESAP MAKİNESİ MANTIĞI
     let calcExp = "";
+    function updateCalc() { document.getElementById("calcDisplay").innerText = calcExp.replace(/\*/g, "×").replace(/\//g, "÷") || "0"; }
     function calcNum(n) { if (calcExp === "0") calcExp = ""; calcExp += n; updateCalc(); }
     function calcOp(op) { if (!calcExp && op !== '-') return; const last = calcExp.slice(-1); if (['+','-','*','/'].includes(last)) calcExp = calcExp.slice(0, -1) + op; else calcExp += op; updateCalc(); }
     function calcClear() { calcExp = ""; updateCalc(); }
     function calcBack() { calcExp = calcExp.slice(0,-1); updateCalc(); }
     function calcEqual() { try { if (!calcExp) return; calcExp = String(eval(calcExp.replace(/×/g, "*").replace(/÷/g, "/"))); updateCalc(); } catch(e) { document.getElementById("calcDisplay").innerText = "Hata"; calcExp = ""; } }
-    function updateCalc() { document.getElementById("calcDisplay").innerText = calcExp.replace(/\*/g, "×").replace(/\//g, "÷") || "0"; }
 
     // BAŞLATMA
     window.addEventListener('DOMContentLoaded', () => {
         updateThemeIcon(document.documentElement.classList.contains('dark-mode'));
         renderCalendar();
     });
+    window.addEventListener('load', () => { setTimeout(() => document.getElementById('splash-screen').classList.add('fade-out'), 2000); });
     document.querySelectorAll(".modal").forEach(m => { m.onclick = e => { if (e.target === m) m.classList.remove("active"); }; });
 </script>
 </body>
